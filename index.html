@@ -179,6 +179,57 @@ canvas#cv{position:fixed;inset:0;display:block}
 @keyframes fall{to{transform:translateY(105vh) rotate(720deg)}}
 #copyMsg{font-size:16px;color:#8fe3c0;text-align:center;margin-top:6px;min-height:16px;word-break:break-all}
 .hidden{display:none!important}
+/* ===== 휴대폰 가로 모드 ===== */
+@media (orientation:landscape) and (max-height:540px){
+  #status{width:196px;padding:4px 8px 5px 4px;gap:6px}
+  #pf{width:42px;height:42px}
+  .stat .nm{font-size:15px}.stat .job{font-size:12px;margin-bottom:1px}
+  .gauge{font-size:11px;margin-top:1px}.gauge span{width:36px}.gauge .g{height:8px}
+  #clock{padding:2px 10px 4px;min-width:112px}#clock .tm{font-size:26px}#clock .ampm,#clock .left{font-size:12px}
+  #quest{top:calc(env(safe-area-inset-top) + 8px);right:calc(env(safe-area-inset-right) + 132px);width:230px;padding:5px 9px}
+  #quest .qt{font-size:13px;margin-bottom:1px}#qTog{font-size:11px}
+  #quest .qn{font-size:15px}#quest .qs{font-size:13px}#quest .done{font-size:12px;max-height:56px;overflow:hidden}
+  #quest.min{max-width:230px}#quest.min .qn{font-size:14px}
+  #hotbar{bottom:calc(env(safe-area-inset-bottom) + 6px);padding:4px;gap:4px}
+  .slot{width:40px;height:40px;font-size:22px}.slot small{font-size:9px}
+  #joy{left:calc(env(safe-area-inset-left) + 14px);bottom:calc(env(safe-area-inset-bottom) + 10px);width:104px;height:104px}
+  #knob{width:44px;height:44px;margin:-22px 0 0 -22px}
+  #abtn{right:calc(env(safe-area-inset-right) + 16px);bottom:calc(env(safe-area-inset-bottom) + 14px);width:78px;height:78px;font-size:26px}
+  #abtn small{font-size:12px;max-width:70px}
+  #toast{top:24%}.tst{font-size:15px;padding:7px 14px}
+  #dlg{bottom:calc(env(safe-area-inset-bottom) + 6px);padding:8px 10px;gap:10px;max-width:760px;max-height:calc(100vh - 16px);overflow:auto}
+  #dp{width:62px;height:62px}#dName{font-size:15px;margin-bottom:3px}
+  #dText{font-size:18px;min-height:44px;line-height:1.45}#dNext{font-size:14px}
+  #dChoices{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+  #dChoices button{font-size:16px;padding:8px 10px}
+  #pop{bottom:calc(env(safe-area-inset-bottom) + 58px)}
+  #pop .pn{font-size:19px}#pop .pd{font-size:15px}
+  .screen{align-items:flex-start}
+  #tut .tt{top:6%;font-size:24px}#tut .go{top:18%}#tut .call{font-size:16px;padding:8px 10px}#tut .call b{font-size:19px}
+  #fsBtn{display:block}
+  #sTitle{align-items:center}
+  #sTitle .box{width:min(820px,100%);display:grid;grid-template-columns:1fr 1.05fr;gap:14px;align-items:center;padding:12px 16px}
+  #sTitle .logo h1{font-size:40px;margin:6px 0 0}#sTitle .logo h1 em{font-size:32px}#sTitle .logo p{font-size:15px;margin:8px 0 0}
+  #sTitle .howto{margin-top:0;padding:8px 12px}#sTitle .ht-row{font-size:15px;margin-top:6px}#sTitle .ht-row b{font-size:17px}#sTitle .ht-ic{width:48px;height:48px}#sTitle .ht-a{font-size:22px}#sTitle .ht-pc{display:none}
+  #sTitle .big-btn{margin-top:8px;padding:10px;font-size:22px}
+  #sSetup .box{width:min(820px,100%);padding:10px 14px}
+  #lookCh{grid-template-columns:repeat(4,minmax(0,1fr))!important}#lookCh canvas{width:52px;height:52px}
+  #jobCh{grid-template-columns:repeat(4,minmax(0,1fr))!important}#jobCh .ch{font-size:14px;padding:5px 3px}#jobCh .ch b{font-size:22px}
+  #sesCh{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+  .sec{font-size:18px;margin:8px 0 5px}
+  #cbt{align-items:center}#cbt .win{width:min(860px,100%)}
+  #cbt .hd{padding:4px 10px;font-size:14px}#cbt .hd b{font-size:17px}#cbt .tmr{font-size:19px}
+  #cbt .bd{flex-direction:row;padding:6px;gap:6px}
+  #cbt .side{width:118px;display:block;text-align:center;font-size:12px;padding:6px}#cbt .side canvas{width:46px;height:46px}#cbt .nums{width:auto;margin:6px 0 0}
+  #cbt .main{padding:8px 10px}#cbt .qno{font-size:13px}#cbt .qq{font-size:19px;margin:4px 0 4px}
+  #cOps{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  #cbt .op{font-size:16px;padding:8px 10px;margin-top:0}#cbt .op.ox{width:auto;font-size:30px;padding:4px}#cbt .op.ox+.op.ox{margin-left:0}
+  #cbt .fb{font-size:15px;margin-top:6px;padding:6px 8px}#cbt .nx{font-size:18px;padding:8px;margin-top:6px}
+}
+#endBox #bNext,#endBox #bSv{position:sticky;bottom:0;z-index:2}
+#btnGo{position:sticky;bottom:0;z-index:2}
+#fsBtn{display:none;position:absolute;left:50%;top:calc(env(safe-area-inset-top) + 8px);transform:translateX(-50%);font:inherit;font-size:14px;padding:6px 12px;border-radius:99px;border:2px solid var(--gold);background:rgba(15,27,54,.9);color:#fff;cursor:pointer}
+#fsBtn.hide{display:none!important}
 </style>
 </head>
 <body>
@@ -206,6 +257,7 @@ canvas#cv{position:fixed;inset:0;display:block}
     <div class="done" id="qDone"></div>
   </div>
   <div id="toast"></div>
+  <button id="fsBtn">⛶ 전체화면으로 크게</button>
   <div id="joy"><div id="knob"></div></div>
   <div id="abtn">A<small id="aLbl">행동</small></div>
   <div id="hotbar" class="panel"></div>
@@ -225,9 +277,12 @@ canvas#cv{position:fixed;inset:0;display:block}
 <div id="tut"><div class="tt">🎮 조작 방법</div><div class="ring" id="tutR1"></div><div class="ring" id="tutR2"></div><div class="call" id="tutC1"><b>① 이동</b><br>이 조이스틱을<br>손가락으로 끌어요</div><div class="call" id="tutC2"><b>② 행동</b><br>노란 A 버튼을 누르면<br>줍기·대화·열기!</div><button class="big-btn go" id="tutGo">알겠어요! 시작 ▶</button></div>
 <div class="screen show" id="sTitle">
   <div class="box panel logo">
+    <div class="tl">
     <span class="sub">산인공 경북지사 시험장 시뮬레이션 게임</span>
     <h1>D-DAY<br><em>시험장 타이쿤</em></h1>
     <p style="word-break:keep-all"><b style="color:#fff">오늘은 드디어 자격증 시험을 치는 날!</b><br>준비물을 챙기고 늦지 않게 시험장에 도착해서 시험까지 무사히 마칠 수 있을까?</p>
+    </div>
+    <div class="tr">
     <div class="howto">
       <div class="ht-t">🎮 조작 방법</div>
       <div class="ht-row"><div class="ht-ic ht-joy"><i></i></div><div><b>이동</b><br>화면 <u>왼쪽 아래</u> 동그란 조이스틱을<br>손가락으로 끌어요</div></div>
@@ -235,6 +290,7 @@ canvas#cv{position:fixed;inset:0;display:block}
       <div class="ht-pc">💻 PC: 방향키로 이동 · 스페이스바로 행동</div>
     </div>
     <button class="big-btn" id="btnStart">▶ 게임 시작</button>
+    </div>
   </div>
 </div>
 <!-- setup -->
@@ -484,6 +540,11 @@ try{const v=localStorage.getItem('dday_qmin');if(v!==null)QMIN=v==='1'}catch(e){
 function applyQ(){$('#quest').classList.toggle('min',QMIN);$('#qTog').textContent=QMIN?'▼ 펼치기':'▲ 접기'}
 $('#quest').addEventListener('click',e=>{e.stopPropagation();QMIN=!QMIN;applyQ();try{localStorage.setItem('dday_qmin',QMIN?'1':'0')}catch(e){}});
 applyQ();
+/* ============ 전체화면 (가로 모드용) ============ */
+(function(){const b=$('#fsBtn');const can=document.fullscreenEnabled||document.webkitFullscreenEnabled;
+  const upd=()=>{const fs=document.fullscreenElement||document.webkitFullscreenElement;b.classList.toggle('hide',!can||!!fs)};
+  b.addEventListener('click',e=>{e.stopPropagation();const el=document.documentElement;const f=el.requestFullscreen||el.webkitRequestFullscreen;if(f)try{const r=f.call(el,{navigationUI:'hide'});if(r&&r.catch)r.catch(()=>{})}catch(err){}});
+  document.addEventListener('fullscreenchange',upd);document.addEventListener('webkitfullscreenchange',upd);upd()})();
 /* ============ 확대 방지 (휴대폰 더블탭·핀치) ============ */
 let lastTouchEnd=0;
 document.addEventListener('touchend',e=>{const now=Date.now();if(now-lastTouchEnd<=350){e.preventDefault();const t=e.target;if(t&&t.click&&!t.closest('#joy,#abtn'))t.click()}lastTouchEnd=now},{passive:false});
@@ -904,7 +965,7 @@ function update(dt){
 const cv=$('#cv'),ctx=cv.getContext('2d');
 let DPR=1,VW=0,VH=0,ZOOM=1;
 let DPR_MAX=3;const QS={n:0,sum:0};
-function resize(){DPR=Math.min(devicePixelRatio||1,DPR_MAX);VW=innerWidth;VH=innerHeight;cv.width=VW*DPR;cv.height=VH*DPR;cv.style.width=VW+'px';cv.style.height=VH+'px';ZOOM=clamp(Math.min(VW,VH*1.1)/400,.9,1.6)}
+function resize(){DPR=Math.min(devicePixelRatio||1,DPR_MAX);VW=innerWidth;VH=innerHeight;cv.width=VW*DPR;cv.height=VH*DPR;cv.style.width=VW+'px';cv.style.height=VH+'px';ZOOM=(VW>VH&&VH<540)?clamp(VH/400,.7,1):clamp(Math.min(VW,VH*1.1)/400,.9,1.6)}
 addEventListener('resize',resize);resize();
 const iso=(x,y)=>[(x-y)*TW/2,(x+y)*TH/2];
 function poly(c,pts,fill,stroke){c.beginPath();c.moveTo(pts[0][0],pts[0][1]);for(let k=1;k<pts.length;k++)c.lineTo(pts[k][0],pts[k][1]);c.closePath();if(fill){c.fillStyle=fill;c.fill()}if(stroke){c.strokeStyle=stroke;c.lineWidth=1;c.stroke()}}
