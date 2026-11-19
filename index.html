@@ -594,7 +594,7 @@ function tileAct(t){
   if(t.c==='b'||t.c==='n'){say([{who:'player',text:'푹신한 침대… 5분만 더? 아니, 오늘은 시험날이잖아!'}]);return}
   if(t.c==='S'){say([{text:'【 → CBT 시험장 】\n길을 따라가면 시험장이 나온다.'}]);return}
   if(t.c==='G'){F.ext=F.ext||[];const key=t.i+','+t.j,first=!F.ext.includes(key);if(first)F.ext.push(key);const n=F.ext.length;
-    say([{text:`🧯 소화기예요! (위치 확인 ${n}/4)\n불이 나면 먼저 "불이야!" 외치고, 시험위원 안내에 따라 대피해요.`},{text:'작은 불일 때 사용법\n① 안전핀 뽑기 ② 노즐을 불 쪽으로\n③ 손잡이 꽉 쥐기 ④ 빗자루 쓸듯 뿌리기'}],
+    say([{text:`🧯 소화기예요!\n불이 나면 먼저 "불이야!" 외치고, 시험위원 안내에 따라 대피해요.`},{text:'작은 불일 때 사용법\n① 안전핀 뽑기 ② 노즐을 불 쪽으로\n③ 손잡이 꽉 쥐기 ④ 빗자루 쓸듯 뿌리기'}],
       ()=>{if(first&&n===4&&!BADGES.includes('🧯 소화기 위치 확인')){BADGES.push('🧯 소화기 위치 확인');addPrep(10);jingle();toast('🧯 소화기 4곳을 모두 찾았어요!')}else if(first)toast(`🧯 소화기 위치 확인 ${n}/4`)});return}
   if(t.c==='J'){say([{text:'🏃 비상구예요.\n화재·지진 같은 비상 상황에는 당황하지 말고 시험위원 안내에 따라 이 비상구로 대피해요.'},{text:'대피할 때는 엘리베이터 대신 계단을 이용하고,\n연기가 있으면 젖은 손수건으로 코와 입을 막고 낮은 자세로 이동해요.'}],()=>{if(!F.exitSeen){F.exitSeen=1;addPrep(3)}});return}
   if(t.c==='M'){openEvac();return}
@@ -903,7 +903,8 @@ function update(dt){
 /* ============ 그리기 ============ */
 const cv=$('#cv'),ctx=cv.getContext('2d');
 let DPR=1,VW=0,VH=0,ZOOM=1;
-function resize(){DPR=Math.min(devicePixelRatio||1,2);VW=innerWidth;VH=innerHeight;cv.width=VW*DPR;cv.height=VH*DPR;cv.style.width=VW+'px';cv.style.height=VH+'px';ZOOM=clamp(Math.min(VW,VH*1.1)/400,.9,1.6)}
+let DPR_MAX=3;const QS={n:0,sum:0};
+function resize(){DPR=Math.min(devicePixelRatio||1,DPR_MAX);VW=innerWidth;VH=innerHeight;cv.width=VW*DPR;cv.height=VH*DPR;cv.style.width=VW+'px';cv.style.height=VH+'px';ZOOM=clamp(Math.min(VW,VH*1.1)/400,.9,1.6)}
 addEventListener('resize',resize);resize();
 const iso=(x,y)=>[(x-y)*TW/2,(x+y)*TH/2];
 function poly(c,pts,fill,stroke){c.beginPath();c.moveTo(pts[0][0],pts[0][1]);for(let k=1;k<pts.length;k++)c.lineTo(pts[k][0],pts[k][1]);c.closePath();if(fill){c.fillStyle=fill;c.fill()}if(stroke){c.strokeStyle=stroke;c.lineWidth=1;c.stroke()}}
@@ -1189,7 +1190,9 @@ function banner(x,y,text,fg,bg){ctx.font='20px "Black Han Sans"';const w=ctx.mea
 
 const TOUR=[[5,4],[13,4],[18,5],[16,8],[10,10],[8,14],[17,14],[22,19],[17,21],[9,21],[6,11]];let tourI=0;
 function frame(ts){
-  const dt=Math.min(.05,(ts-last)/1000);last=ts;T+=dt;
+  const rawDt=(ts-last)/1000;const dt=Math.min(.05,rawDt);last=ts;T+=dt;
+  // 화질 자동 조절: 고해상도에서 너무 느리면(평균 30fps 미만) 한 단계 낮춤
+  if(DPR>2&&MODE==='play'){QS.n++;QS.sum+=rawDt;if(QS.n>=90){if(QS.sum/QS.n>1/30){DPR_MAX=2;resize()}QS.n=0;QS.sum=0}}
   if(MODE==='play'&&!DLG&&!POP){if(CUT)updateCut(dt);else update(dt)}
   if(MODE==='play'&&P){cam.x+=(P.x-cam.x)*Math.min(1,dt*6);cam.y+=(P.y-cam.y)*Math.min(1,dt*6)}
   else if(MODE==='title'){const tg=TOUR[tourI];cam.x+=(tg[0]-cam.x)*dt*.6;cam.y+=(tg[1]-cam.y)*dt*.6;if(Math.hypot(tg[0]-cam.x,tg[1]-cam.y)<.6)tourI=(tourI+1)%TOUR.length}
