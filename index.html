@@ -1146,8 +1146,8 @@ function update(dt){
 const cv=$('#cv');let ctx=cv.getContext('2d');
 let DPR=1,VW=0,VH=0,ZOOM=1;
 let DPR_MAX=3;const QS={n:0,sum:0};
-function resize(){DPR=Math.min(devicePixelRatio||1,DPR_MAX);VW=innerWidth;VH=innerHeight;cv.width=VW*DPR;cv.height=VH*DPR;cv.style.width=VW+'px';cv.style.height=VH+'px';ZOOM=(VW>VH&&VH<540)?clamp(VH/400,.7,1):clamp(Math.min(VW,VH*1.1)/400,.9,1.6)}
-addEventListener('resize',resize);resize();
+function resize(){const dpr=Math.min(devicePixelRatio||1,DPR_MAX);VW=innerWidth;VH=innerHeight;cv.width=Math.round(VW*dpr);cv.height=Math.round(VH*dpr);DPR=cv.width/VW;cv.style.width=VW+'px';cv.style.height=VH+'px';ZOOM=(VW>VH&&VH<540)?clamp(VH/400,.7,1):clamp(Math.min(VW,VH*1.1)/400,.9,1.6)}
+addEventListener('resize',resize);addEventListener('orientationchange',()=>setTimeout(resize,250));document.addEventListener('visibilitychange',()=>{if(!document.hidden)resize()});if(window.visualViewport)visualViewport.addEventListener('resize',resize);resize();
 const iso=(x,y)=>[(x-y)*TW/2,(x+y)*TH/2];
 function poly(c,pts,fill,stroke){c.beginPath();c.moveTo(pts[0][0],pts[0][1]);for(let k=1;k<pts.length;k++)c.lineTo(pts[k][0],pts[k][1]);c.closePath();if(fill){c.fillStyle=fill;c.fill()}if(stroke){c.strokeStyle=stroke;c.lineWidth=1;c.stroke()}}
 function diamond(i,j,fill,ins=0,stroke){const A=iso(i+ins,j+ins),B=iso(i+1-ins,j+ins),C=iso(i+1-ins,j+1-ins),D=iso(i+ins,j+1-ins);poly(ctx,[A,B,C,D],fill,stroke)}
@@ -1535,7 +1535,6 @@ const TOUR=[[5,4],[13,4],[18,5],[16,8],[10,10],[8,14],[17,14],[22,19],[17,21],[9
 function frame(ts){
   const rawDt=(ts-last)/1000;const dt=Math.min(.05,rawDt);last=ts;T+=dt;
   // 화질 자동 조절: 고해상도에서 너무 느리면(평균 30fps 미만) 한 단계 낮춤
-  if(DPR>2&&MODE==='play'){QS.n++;QS.sum+=rawDt;if(QS.n>=120){if(QS.sum/QS.n>1/24){DPR_MAX=DPR>2.5?2.5:2;resize()}QS.n=0;QS.sum=0}}
   if(MODE==='play'&&!DLG&&!POP){if(CUT)updateCut(dt);else update(dt)}
   if(MODE==='play'&&P){cam.x+=(P.x-cam.x)*Math.min(1,dt*6);cam.y+=(P.y-cam.y)*Math.min(1,dt*6)}
   else if(MODE==='title'){const tg=TOUR[tourI];cam.x+=(tg[0]-cam.x)*dt*.6;cam.y+=(tg[1]-cam.y)*dt*.6;if(Math.hypot(tg[0]-cam.x,tg[1]-cam.y)<.6)tourI=(tourI+1)%TOUR.length}
@@ -1586,6 +1585,8 @@ I18NOBS.observe(document.body,{childList:true,subtree:true,characterData:true});
   $('#btnLang').onclick=()=>{$('#sTitle').classList.remove('show');$('#sLang').classList.add('show')};
   let saved=null;try{saved=localStorage.getItem('dday_lang')}catch(e){}if(saved&&!LNS.some(x=>x[0]===saved))saved=null;
   setLang(saved||'ko')})();
+if(/[?&]debug/.test(location.search)){const d=document.createElement('div');d.style.cssText='position:fixed;left:4px;bottom:4px;z-index:9999;background:rgba(0,0,0,.75);color:#0f0;font:12px monospace;padding:4px 6px;border-radius:6px;pointer-events:none;white-space:pre';document.body.appendChild(d);
+  let fc=0,ft=performance.now(),fps=0;(function dbg(t){fc++;if(t-ft>1000){fps=fc;fc=0;ft=t}const vv=window.visualViewport;d.textContent=`ver 1119-1700\ndpr ${devicePixelRatio} → ${DPR.toFixed(2)}\ncanvas ${cv.width}x${cv.height}\ncss ${VW}x${VH} / ${cv.getBoundingClientRect().width.toFixed(0)}x${cv.getBoundingClientRect().height.toFixed(0)}\nvv ${vv?vv.width.toFixed(0)+'x'+vv.height.toFixed(0)+' s'+vv.scale.toFixed(2):'-'}\nzoom ${ZOOM.toFixed(2)} fps ${fps}\n${navigator.userAgent.slice(0,60)}`;requestAnimationFrame(dbg)})(ft)}
 requestAnimationFrame(frame);
 </script>
 </body>
