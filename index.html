@@ -294,7 +294,7 @@ const ITEMS={
   clover:{icon:'🍀',name:'네잎클로버',desc:'행운의 네잎클로버!'},
 };
 const DEVICES=['phone','watch','glasses'];
-function makeNPCS(){return [{id:'friend',x:12.5,y:11.5,look:'friend',label:'민수'},{id:'guide',x:23.5,y:18.5,look:'guide',label:'안내요원'},{id:'supervisor',x:8.5,y:17.5,look:'supervisor',label:'시험위원'},{id:'cat',x:5.5,y:8.5,cat:true,label:'냥이'},{id:'dog',x:17.5,y:12.5,dog:true,label:'멍멍이'},{id:'granny',x:11.5,y:8.5,look:'granny',label:'옆집 할머니'},{id:'e1',x:15.5,y:22.5,look:'e1',sit:true,face:'down'},{id:'e2',x:18.5,y:22.5,look:'e2',sit:true,face:'down'}]}
+function makeNPCS(){return [{id:'friend',x:12.5,y:11.5,look:'friend',label:'민수'},{id:'guide',x:23.5,y:18.5,look:'guide',label:'안내요원'},{id:'supervisor',x:8.5,y:17.5,look:'supervisor',label:'시험위원'},{id:'cat',x:5.5,y:8.5,cat:true,label:'냥이'},{id:'dog',x:17.5,y:13.6,dog:true,label:'멍멍이'},{id:'granny',x:11.5,y:8.5,look:'granny',label:'옆집 할머니'},{id:'e1',x:15.5,y:22.5,look:'e1',sit:true,face:'down'},{id:'e2',x:18.5,y:22.5,look:'e2',sit:true,face:'down'}]}
 const PIGEONS=[{x:12.6,y:13.4},{x:13.3,y:13.0},{x:13.0,y:13.8},{x:3.2,y:15.4},{x:3.9,y:15.9}].map(p=>({...p,hx:p.x,hy:p.y,fly:0,t:Math.random()*6}));
 const CH={
   player:{name:'나'},supervisor:{name:'시험위원',look:'supervisor'},guide:{name:'시험장 안내요원',look:'guide'},
@@ -338,7 +338,7 @@ function buildMap(){
   for(let x=1;x<=9;x++)for(let y=1;y<=7;y++){let c='o';if(y===1||x===1)c='H';else if(y===7||x===9)c='h';set(x,y,c)}
   set(9,4,'o');set(5,2,'b');set(2,4,'k');
   const line=(x1,y1,x2,y2)=>{let x=x1,y=y1;for(;;){set(x,y,'r');if(x===x2&&y===y2)break;x+=Math.sign(x2-x);y+=Math.sign(y2-y)}};
-  line(10,4,16,4);line(16,4,16,10);line(16,10,8,10);line(8,10,8,14);line(8,14,22,14);line(22,14,22,19);
+  line(10,4,16,4);line(16,4,16,10);line(16,10,8,10);line(8,10,8,12);line(8,12,22,12);line(22,12,22,19);
   // 시험장 건물 (넓힘: x5~21, y16~25) — 왼쪽 시험실 / 오른쪽 대기실
   for(let x=5;x<=21;x++)for(let y=16;y<=25;y++){let c='f';if(y===16||x===5)c='X';else if(y===25||x===21)c='x';set(x,y,c)}
   set(21,19,'D');
@@ -560,7 +560,7 @@ function talk(n){
   }
   if(n.id==='guide'){
     const steps=F.guideIn?[{who:'guide',text:F.callIn?'입실 안내가 나왔어요! 시험실로 입실해 주세요.':'대기실에서 기다리시다가, 시험위원이 시험실로 입실하라고 안내하면 시험실로 입실해 주세요.'}]
-      :[{who:'guide',text:'국가기술자격 시험장입니다!\n먼저 대기실로 들어가서 빈 의자에 앉아 기다려 주세요.'}];
+      :[{who:'guide',text:'CBT 시험장입니다!\n먼저 대기실로 들어가서 빈 의자에 앉아 기다려 주세요.'}];
     say(steps,()=>{if(!F.guide){F.guide=1;addPrep(5)}});return;
   }
   if(n.id==='supervisor'){
@@ -575,7 +575,7 @@ function tileAct(t){
     say([{text:'책상 서랍을 열었다…'},{text:`🪪 ${ITEMS[idk].name} 발견! 이거 없었으면 큰일 날 뻔!`}],()=>{F.drawer=1;INV.push(idk);renderHotbar();sparkle(t.x,t.y);jingle();addPrep(15,'🪪 신분증 챙김')});return;
   }
   if(t.c==='b'){say([{who:'player',text:'푹신한 침대… 5분만 더? 아니, 오늘은 시험날이잖아!'}]);return}
-  if(t.c==='S'){say([{text:'【 → 국가기술자격 시험장 】\n길을 따라가면 시험장이 나온다.'}]);return}
+  if(t.c==='S'){say([{text:'【 → CBT 시험장 】\n길을 따라가면 시험장이 나온다.'}]);return}
   if(t.c==='Z'){say([{text:'🚧 실기시험장은 현재 오픈 준비 중이에요!'},{text:'조리·제과제빵·미용·운전 같은 작업형 실기시험 체험이 곧 열릴 예정이에요.\n조금만 기다려 주세요!'}]);return}
   if(t.c==='V'){if(F.drink){say([{who:'player',text:'벌써 한 캔 마셨어. 배가 부르다~'}]);return}
     say([{text:'자판기 버튼을 눌렀다… 덜컹!'},{who:'player',text:'캬~ 시원하다! 정신이 번쩍 든다!'}],()=>{F.drink=1;addMent(10);BADGES.includes('🥤 시원한 음료')||BADGES.push('🥤 시원한 음료');sparkle(t.x,t.y,'#7fd0ff')});return}
@@ -634,7 +634,20 @@ function guideTalkInside(){
   ],()=>say([
     {text:'…잠시 후, 시험실 쪽에서 안내가 들려온다.'},
     {who:'supervisor',text:'📢 수험자 여러분, 지금부터 시험실로 입실해 주세요!'},
-  ],()=>{F.callIn=1;sparkle(13.5,19.5,'#8fe3c0');jingle();toast('🚪 시험실 문이 열렸어요! 시험실로 입실하세요');updateHUD()}));
+  ],()=>{F.callIn=1;moveExaminees();sparkle(13.5,19.5,'#8fe3c0');jingle();toast('🚪 시험실 문이 열렸어요! 시험실로 입실하세요');updateHUD()}));
+}
+function moveExaminees(){
+  const plan={e1:{wait:0,dest:[7.5,23.4]},e2:{wait:.8,dest:[11.5,23.4]}};
+  for(const n of NPCS){const pl=plan[n.id];if(!pl)continue;
+    n.sit=false;n.wait=pl.wait;n.endSit=true;n.endFace='up';
+    n.path=[[n.x,19.6],[13.5,19.6],[12.5,19.6],[12.5,23.4],pl.dest];}
+}
+function updateWalkers(dt){
+  for(const n of NPCS){if(!n.path||!n.path.length)continue;
+    if(n.wait>0){n.wait-=dt;continue}
+    const tg=n.path[0],dx=tg[0]-n.x,dy=tg[1]-n.y,d=Math.hypot(dx,dy);
+    if(d<.05){n.path.shift();if(!n.path.length){n.moving=false;n.sit=!!n.endSit;n.face=n.endFace||'down';n.flip=false}continue}
+    const sp=Math.min(d,2.4*dt);n.x+=dx/d*sp;n.y+=dy/d*sp;n.moving=true;n.flip=(dx-dy)<0;n.face=(dx+dy)<0?'up':'down';}
 }
 function onEnter(){
   F.entered=1;updateHUD();
@@ -820,7 +833,7 @@ $('#abtn').addEventListener('pointerdown',e=>{e.preventDefault();act()});
 function blocked(x,y){
   const r=.26;
   for(const [ox,oy] of [[-r,-r],[r,-r],[-r,r],[r,r]]){const tx=Math.floor(x+ox),ty=Math.floor(y+oy);if(tx<0||ty<0||tx>=W||ty>=H)return true;const gc=G[ty][tx];if(BLOCK.has(gc)||(gc==='E'&&!F.callIn))return true}
-  for(const n of NPCS)if(Math.hypot(n.x-x,n.y-y)<.55)return true;
+  for(const n of NPCS)if(!(n.path&&n.path.length)&&Math.hypot(n.x-x,n.y-y)<.55)return true;
   return false;
 }
 let lastTick=-1;
@@ -846,7 +859,8 @@ function update(dt){
   if(!F.leftHome&&P.x>=10){F.leftHome=1;updateHUD();toast('🚶 출발! 길을 따라 시험장으로')}
   if(!F.arrived&&P.x<21&&P.x>=14&&P.y>=17&&P.y<25)onArrive();
   if(!F.entered&&P.x<13&&P.x>=6&&P.y>=17&&P.y<25)onEnter();
-  for(const n of NPCS){if(n.sit)continue;const d=Math.hypot(n.x-P.x,n.y-P.y);if(d<3){const s=(P.x-n.x)-(P.y-n.y);n.flip=s<0;n.face=((P.x-n.x)+(P.y-n.y))<-.2?'up':'down'}}
+  updateWalkers(dt);
+  for(const n of NPCS){if(n.sit||(n.path&&n.path.length))continue;const d=Math.hypot(n.x-P.x,n.y-P.y);if(d<3){const s=(P.x-n.x)-(P.y-n.y);n.flip=s<0;n.face=((P.x-n.x)+(P.y-n.y))<-.2?'up':'down'}}
   TARGET=getTarget();
   $('#aLbl').textContent=TARGET?(TARGET.btn||TARGET.label):'행동';$('#abtn').classList.toggle('dim',!TARGET);
 }
@@ -881,14 +895,19 @@ function drawFloor(i,j,c){
   else if(c==='E'){diamond(i,j,'#b98e67');if(F&&F.callIn)diamond(i,j,'#35c495',.2)}
   else if(c==='D'){diamond(i,j,'#b98e67');diamond(i,j,'#d14b5a',.18)}
 }
-const WC={w:{h:34,t:'#eef3fb',l:'#c5d3e8',r:'#a9bbd6'},H:{h:58,t:'#fff4e2',l:'#e8d3b3',r:'#d3b994'},h:{h:12,t:'#fff4e2',l:'#e8d3b3',r:'#d3b994'},X:{h:66,t:'#eef3fb',l:'#c5d3e8',r:'#a9bbd6'},x:{h:12,t:'#eef3fb',l:'#c5d3e8',r:'#a9bbd6'}};
+const WC={w:{h:34,t:'#eef3fb',l:'#c5d3e8',r:'#a9bbd6'},H:{h:46,t:'#fff4e2',l:'#e8d3b3',r:'#d3b994'},h:{h:12,t:'#fff4e2',l:'#e8d3b3',r:'#d3b994'},X:{h:48,t:'#eef3fb',l:'#c5d3e8',r:'#a9bbd6'},x:{h:12,t:'#eef3fb',l:'#c5d3e8',r:'#a9bbd6'}};
 function drawTileObj(i,j,c,t){
+  const occ=(WC[c]&&WC[c].h>20||c==='Y'||c==='Z'||c==='T')&&P&&MODE==='play'&&(i+j+1)>(P.x+P.y)&&(i+j+1)-(P.x+P.y)<(c==='T'?2.6:4.5)&&Math.abs((i+.5-j-.5)-(P.x-P.y))<(c==='T'?1.4:3.2);
+  if(occ){ctx.save();ctx.globalAlpha=.32;drawTileObj2(i,j,c,t);ctx.restore();return}
+  drawTileObj2(i,j,c,t);
+}
+function drawTileObj2(i,j,c,t){
   if(WC[c]){const w=WC[c];box(i,j,i+1,j+1,w.h,w.t,w.l,w.r);
     if((c==='X'||c==='H')&&j===(c==='X'?16:1)&&i%2===(c==='X'?0:1)&&i>(c==='X'?5:1)&&i<(c==='X'?21:9)&&i!==13){const z0=18,z1=w.h-14,a=iso(i+.22,j+1),b=iso(i+.78,j+1);poly(ctx,[[a[0],a[1]-z0],[b[0],b[1]-z0],[b[0],b[1]-z1],[a[0],a[1]-z1]],'#8fd0f5','rgba(0,0,0,.25)');const m=iso(i+.5,j+1);ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(m[0],m[1]-z0);ctx.lineTo(m[0],m[1]-z1);ctx.stroke()}
     if((c==='X'||c==='H')&&i===(c==='X'?5:1)&&j%2===0&&j>(c==='X'?16:1)&&j<(c==='X'?25:7)){const z0=18,z1=w.h-14,a=iso(i+1,j+.22),b=iso(i+1,j+.78);poly(ctx,[[a[0],a[1]-z0],[b[0],b[1]-z0],[b[0],b[1]-z1],[a[0],a[1]-z1]],'#8fd0f5','rgba(0,0,0,.25)')}
     return}
   if(c==='B'){box(i+.2,j+.2,i+.8,j+.8,10,'#f2a93b','#d38c25','#bb7a1f');box(i+.2,j+.2,i+.32,j+.8,26,'#f2a93b','#d38c25','#bb7a1f',10);return}
-  if(c==='E'){if(F&&F.callIn){const [x,y]=iso(i+.5,j+.5);ctx.fillStyle='#35c495';ctx.font='bold 17px Jua';ctx.textAlign='center';if(!F.entered)ctx.fillText('▼ 시험실 입실',x,y-58+Math.sin(T*4)*3);return}
+  if(c==='E'){if(F&&F.callIn){const [x,y]=iso(i+.5,j+.5);ctx.fillStyle='#35c495';ctx.font='bold 17px Jua';ctx.textAlign='center';if(!F.entered&&j===19)ctx.fillText('▼ 시험실 입실',x,y-58+Math.sin(T*4)*3);return}
     box(i+.42,j,i+.58,j+1,46,'#c05a4a','#a34a3c','#8e3f33');const [x,y]=iso(i+.58,j+.5);ctx.font='14px serif';ctx.textAlign='center';ctx.fillText('🔒',x+4,y-26);return}
   if(c==='Y'||c==='Z'){box(i,j,i+1,j+1,72,'#fff1de','#f2c994','#dcae70');
     if(j===4){const a=iso(i+.22,j+1),b=iso(i+.78,j+1);if(c==='Z'){poly(ctx,[[a[0],a[1]],[b[0],b[1]],[b[0],b[1]-46],[a[0],a[1]-46]],'#5b4636','rgba(0,0,0,.3)');
@@ -898,7 +917,7 @@ function drawTileObj(i,j,c,t){
     return}
   if(c==='K'){const [x,y]=iso(i+.5,j+.5);ctx.fillStyle='rgba(0,0,0,.18)';ctx.beginPath();ctx.ellipse(x,y,10,4,0,0,6.3);ctx.fill();ctx.fillStyle='#ff7a1a';ctx.beginPath();ctx.moveTo(x-9,y-2);ctx.lineTo(x,y-30);ctx.lineTo(x+9,y-2);ctx.closePath();ctx.fill();ctx.fillStyle='#fff';ctx.fillRect(x-5,y-16,10,4);ctx.fillStyle='#e05a00';ctx.fillRect(x-11,y-3,22,4);return}
   if(c==='V'){box(i+.15,j+.2,i+.85,j+.8,50,'#e8513d','#c63f2d','#ad3626');const a=iso(i+.3,j+.8),b=iso(i+.7,j+.8);poly(ctx,[[a[0],a[1]-22],[b[0],b[1]-22],[b[0],b[1]-44],[a[0],a[1]-44]],'#dff3ff','rgba(0,0,0,.3)');
-    const [x,y]=iso(i+.5,j+.5);ctx.font='13px serif';ctx.textAlign='center';ctx.fillText('🥤',x-6,y-30);if(!F||!F.drink)exMark(x,y-74,t);return}
+    const [x,y]=iso(i+.5,j+.5);if(!F||!F.drink)exMark(x,y-74,t);return}
   if(c==='T'){const [x,y]=iso(i+.5,j+.5);const sw=Math.sin(t*1.5+i+j)*1.2;ctx.fillStyle='rgba(0,0,0,.2)';ctx.beginPath();ctx.ellipse(x,y,18,8,0,0,6.3);ctx.fill();ctx.fillStyle='#8a5a33';rr(ctx,x-4,y-26,8,26,3);
     const g=[['#3f9d4a',x+sw,y-38,21],['#4db058',x-8+sw,y-46,15],['#57bd62',x+7+sw,y-50,14],['#6fcf6f',x+sw,y-60,12]];g.forEach(([cc,a,b,r])=>{ctx.fillStyle=cc;ctx.beginPath();ctx.arc(a,b,r,0,6.3);ctx.fill()});ctx.fillStyle='rgba(255,255,255,.25)';ctx.beginPath();ctx.arc(x-4+sw,y-62,4,0,6.3);ctx.fill();return}
   if(c==='l'){const [x,y]=iso(i+.5,j+.5);ctx.fillStyle='rgba(0,0,0,.18)';ctx.beginPath();ctx.ellipse(x,y,7,3,0,0,6.3);ctx.fill();ctx.fillStyle='#3b4660';ctx.fillRect(x-2,y-56,4,56);ctx.fillStyle='#ffe48a';ctx.beginPath();ctx.arc(x,y-60,7,0,6.3);ctx.fill();ctx.fillStyle='rgba(255,228,138,.25)';ctx.beginPath();ctx.arc(x,y-60,14+Math.sin(t*3)*2,0,6.3);ctx.fill();return}
@@ -1032,7 +1051,7 @@ function draw(){
   const vis=(i,j)=>{const [x,y]=iso(i+.5,j+.5);return Math.abs(x-cx)<hw&&Math.abs(y-cy)<hh};
   for(let j=0;j<H;j++)for(let i=0;i<W;i++)if(vis(i,j))drawFloor(i,j,G[j][i]);
   // 바닥 글씨 (시험실·대기실)
-  floorText(6.2,24.5,'시 험 실','rgba(192,71,106,.55)');floorText(14.4,24.5,'대 기 실','rgba(47,143,91,.55)');
+  floorText(10.1,18.25,'시 험 실','rgba(192,71,106,.6)');floorText(18.2,18.25,'대 기 실','rgba(47,143,91,.6)');
   // target highlight
   const oi=MODE==='play'?curObj():-1;
   if(oi>=0&&OBJ[oi].k==='sit'&&F.idChecked){const a=(Math.sin(T*4)+1)/2;diamond(9,23,`rgba(255,220,80,${.25+a*.35})`,.06)}
@@ -1050,7 +1069,7 @@ function draw(){
   objs.sort((a,b)=>a.d-b.d);objs.forEach(o=>o.f());
   drawPigeons();
   // banners
-  let [bx,by]=iso(21,18);banner(bx,by-112,'국가기술자격 시험장','#1b2a4a','#ffe48a');
+  let [bx,by]=iso(22,19.5);banner(bx,by-50,'CBT 시험장','#1b2a4a','#ffe48a');
   [bx,by]=iso(5.5,2);banner(bx,by-84,'🏠 우리 집','#7a4a22','#fff4e2');
   {const [sx,sy]=iso(12.5,17.5);submitSign(sx,sy,T)}
   [bx,by]=iso(21,3);banner(bx,by-112,'🚧 실기시험장 · 오픈 준비 중','#7a3b00','#ffd9a8');
