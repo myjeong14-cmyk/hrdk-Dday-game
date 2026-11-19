@@ -88,6 +88,7 @@ canvas#cv{position:fixed;inset:0;display:block}
 .dim{background:rgba(10,20,40,.55)}
 .box{width:min(440px,100%);padding:18px;animation:tin .3s;max-height:100%;overflow:auto}
 .logo{text-align:center}
+.logo .lang-g{position:static;display:block;margin:-6px -4px 6px auto;width:max-content}
 .logo .sub{display:inline-block;background:var(--gold);color:var(--navy);border-radius:99px;padding:3px 12px;font-size:13px}
 .logo h1{font-family:'Black Han Sans';font-weight:400;font-size:54px;line-height:1;margin:10px 0 2px;color:#fff;text-shadow:0 4px 0 var(--navy),0 0 0 #000,3px 3px 0 #f2a93b,-2px -2px 0 var(--navy)}
 .logo h1 em{font-style:normal;color:var(--gold);display:block;font-size:44px;margin-top:4px}
@@ -104,7 +105,7 @@ canvas#cv{position:fixed;inset:0;display:block}
 @keyframes aPress{0%,70%,100%{transform:translateY(0)}80%{transform:translateY(3px);box-shadow:0 1px 0 #1b2a4a}}
 .lang-b{font:inherit;font-size:22px;padding:13px;border-radius:14px;border:3px solid var(--navy);background:linear-gradient(180deg,#ffe48a,#f2a93b);color:var(--navy);box-shadow:0 4px 0 var(--navy);cursor:pointer}
 .lang-b:active{transform:translateY(3px);box-shadow:0 1px 0 var(--navy)}
-.lang-g{position:absolute;right:10px;top:10px;font:inherit;font-size:14px;padding:5px 10px;border-radius:99px;border:2px solid var(--gold);background:#0f1b36;color:#fff;cursor:pointer}
+.lang-g{position:absolute;right:10px;top:10px;z-index:3;font:inherit;font-size:15px;padding:6px 12px;box-shadow:0 2px 8px rgba(0,0,0,.35);border-radius:99px;border:2px solid var(--gold);background:#0f1b36;color:#fff;cursor:pointer}
 .logo{position:relative}
 .ht-pc{font-size:14px;color:#5d6b7c;text-align:center;margin-top:10px}
 @media (max-height:720px){.logo h1{font-size:42px;margin:6px 0 0}.logo h1 em{font-size:34px}.logo p{font-size:16px;margin:8px 0}.howto{padding:8px 12px;margin-top:8px}.ht-t{font-size:19px}.ht-row{font-size:16px;margin-top:6px}.ht-row b{font-size:18px}.ht-ic{width:52px;height:52px}.ht-a{font-size:24px}.ht-joy i{width:24px;height:24px;margin:-12px 0 0 -12px}.ht-pc{display:none}#sTitle .big-btn{margin-top:8px;padding:11px}.logo p{line-height:1.45}#sTitle .box{padding:12px 14px}.logo .sub{font-size:12px}}
@@ -301,7 +302,7 @@ canvas#cv{position:fixed;inset:0;display:block}
 <div class="screen show" id="sTitle">
   <div class="box panel logo">
     <div class="tl">
-    <button id="btnLang" class="lang-g">🌐 언어</button><span class="sub">산인공 경북지사 시험장 시뮬레이션 게임</span>
+    <button id="btnLang" class="lang-g" data-noi18n>🌐 한국어 ▾</button><span class="sub">산인공 경북지사 시험장 시뮬레이션 게임</span>
     <h1>D-DAY<br><em>시험장 타이쿤</em></h1>
     <p style="word-break:keep-all"><b style="color:#fff">오늘은 드디어 자격증 시험을 치는 날!</b><br>준비물을 챙기고 늦지 않게 시험장에 도착해서 시험까지 무사히 마칠 수 있을까?</p>
     </div>
@@ -379,14 +380,14 @@ function trNode(n){
 function translateDOM(root){
   if(!root)return;if(root.nodeType===3){trNode(root);return}
   if(root.closest&&root.closest('#dText'))return;
-  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.parentElement&&n.parentElement.closest('#dText,script,style')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.parentElement&&n.parentElement.closest('#dText,script,style,[data-noi18n]')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});
   let n;while(n=w.nextNode())trNode(n);
   root.querySelectorAll&&root.querySelectorAll('[placeholder]').forEach(el=>{if(el.__ph===undefined)el.__ph=el.getAttribute('placeholder');el.setAttribute('placeholder',TR(el.__ph))});
 }
 const I18NOBS=new MutationObserver(ms=>{if(LANG==='ko')return;for(const m of ms){
   if(m.type==='characterData'){if(!(m.target.parentElement&&m.target.parentElement.closest('#dText')))trNode(m.target)}
   else m.addedNodes.forEach(nd=>{if(nd.nodeType===3){if(!(nd.parentElement&&nd.parentElement.closest('#dText')))trNode(nd)}else if(nd.nodeType===1&&!nd.closest('#dText'))translateDOM(nd)})}});
-function setLang(l){LANG=l;try{localStorage.setItem('dday_lang',l)}catch(e){}document.documentElement.lang=l;
+function setLang(l){LANG=l;{const b=document.getElementById('btnLang');if(b)b.textContent='🌐 '+({ko:'한국어',en:'English',ne:'नेपाली',zh:'中文'}[l]||'한국어')+' ▾'}try{localStorage.setItem('dday_lang',l)}catch(e){}document.documentElement.lang=l;
   translateDOM(document.body);if(typeof updateHUD==='function'&&P&&MODE==='play')updateHUD();
   if($('#sSetup').classList.contains('show')&&typeof setupScreen==='function')setupScreen()}
 /* ============ 데이터 ============ */
@@ -1575,7 +1576,7 @@ I18NOBS.observe(document.body,{childList:true,subtree:true,characterData:true});
   box.querySelectorAll('.lang-b').forEach(b=>b.onclick=()=>{setLang(b.dataset.l);$('#sLang').classList.remove('show');$('#sTitle').classList.add('show');beep(660,.06)});
   $('#btnLang').onclick=()=>{$('#sTitle').classList.remove('show');$('#sLang').classList.add('show')};
   let saved=null;try{saved=localStorage.getItem('dday_lang')}catch(e){}if(saved&&!LNS.some(x=>x[0]===saved))saved=null;
-  if(saved){setLang(saved)}else{$('#sTitle').classList.remove('show');$('#sLang').classList.add('show')}})();
+  setLang(saved||'ko')})();
 requestAnimationFrame(frame);
 </script>
 </body>
