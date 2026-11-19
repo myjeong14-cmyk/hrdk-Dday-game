@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>시험날 D-DAY! 국가기술자격 시험장 RPG</title>
+<title>D-DAY 시험장 타이쿤</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Black+Han+Sans&display=swap" rel="stylesheet">
 <style>
@@ -90,7 +90,28 @@ canvas#cv{position:fixed;inset:0;display:block}
 .logo{text-align:center}
 .logo .sub{display:inline-block;background:var(--gold);color:var(--navy);border-radius:99px;padding:3px 12px;font-size:13px}
 .logo h1{font-family:'Black Han Sans';font-weight:400;font-size:54px;line-height:1;margin:10px 0 2px;color:#fff;text-shadow:0 4px 0 var(--navy),0 0 0 #000,3px 3px 0 #f2a93b,-2px -2px 0 var(--navy)}
-.logo h1 em{font-style:normal;color:var(--gold)}
+.logo h1 em{font-style:normal;color:var(--gold);display:block;font-size:44px;margin-top:4px}
+.howto{background:#fff8e1;color:var(--navy);border:3px solid var(--gold);border-radius:16px;padding:12px 14px;margin-top:12px;text-align:left;word-break:keep-all}
+.ht-t{font-family:'Black Han Sans';font-size:22px;text-align:center}
+.ht-row{display:flex;gap:12px;align-items:center;font-size:18px;line-height:1.4;margin-top:10px}
+.ht-row b{font-family:'Black Han Sans';font-weight:400;font-size:21px;color:#c0392b}
+.ht-row small{font-size:15px;color:#5d6b7c}
+.ht-ic{width:66px;height:66px;flex:none;border-radius:50%}
+.ht-joy{background:rgba(27,42,74,.25);border:3px solid #1b2a4a;position:relative}
+.ht-joy i{position:absolute;left:50%;top:50%;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:#fff;border:3px solid #1b2a4a;animation:joyMove 2s ease-in-out infinite}
+@keyframes joyMove{0%,100%{transform:translate(0,0)}25%{transform:translate(12px,-6px)}50%{transform:translate(0,10px)}75%{transform:translate(-12px,-4px)}}
+.ht-a{background:radial-gradient(circle at 40% 35%,#ffe48a,#f2a93b);border:3px solid #1b2a4a;box-shadow:0 4px 0 #1b2a4a;font-family:'Black Han Sans';font-size:30px;display:flex;align-items:center;justify-content:center;color:#1b2a4a;animation:aPress 1.6s infinite}
+@keyframes aPress{0%,70%,100%{transform:translateY(0)}80%{transform:translateY(3px);box-shadow:0 1px 0 #1b2a4a}}
+.ht-pc{font-size:14px;color:#5d6b7c;text-align:center;margin-top:10px}
+@media (max-height:720px){.logo h1{font-size:42px;margin:6px 0 0}.logo h1 em{font-size:34px}.logo p{font-size:16px;margin:8px 0}.howto{padding:8px 12px;margin-top:8px}.ht-t{font-size:19px}.ht-row{font-size:16px;margin-top:6px}.ht-row b{font-size:18px}.ht-ic{width:52px;height:52px}.ht-a{font-size:24px}.ht-joy i{width:24px;height:24px;margin:-12px 0 0 -12px}.ht-pc{display:none}#sTitle .big-btn{margin-top:8px;padding:11px}.logo p{line-height:1.45}#sTitle .box{padding:12px 14px}.logo .sub{font-size:12px}}
+#tut{position:fixed;inset:0;z-index:8;display:none;background:rgba(5,12,28,.62)}
+#tut.show{display:block}
+#tut .ring{position:absolute;border-radius:50%;border:5px solid #ffd23d;box-shadow:0 0 0 6px rgba(255,210,61,.35),0 0 30px #ffd23d;animation:ringP 1.2s infinite}
+@keyframes ringP{50%{transform:scale(1.08)}}
+#tut .call{position:absolute;max-width:46vw;background:#fff8e1;color:var(--navy);border:4px solid var(--gold);border-radius:16px;padding:10px 12px;font-size:18px;line-height:1.4;word-break:keep-all;box-shadow:0 6px 0 rgba(0,0,0,.35)}
+#tut .call b{font-family:'Black Han Sans';font-weight:400;font-size:24px;color:#c0392b}
+#tut .go{position:absolute;left:50%;top:calc(env(safe-area-inset-top) + 20%);transform:translateX(-50%);width:min(320px,86%)}
+#tut .tt{position:absolute;left:50%;top:calc(env(safe-area-inset-top) + 11%);transform:translateX(-50%);color:#fff;font-family:'Black Han Sans';font-size:30px;text-shadow:0 3px 0 #000;white-space:nowrap}
 .logo p{font-size:20px;color:#dfe8ff;line-height:1.6}
 .big-btn{display:block;width:100%;margin-top:12px;font-family:'Black Han Sans';font-size:25px;padding:14px;border-radius:14px;border:3px solid var(--navy);background:linear-gradient(180deg,#ffe48a,#f2a93b);color:var(--navy);box-shadow:0 5px 0 var(--navy);cursor:pointer}
 .big-btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--navy)}
@@ -201,13 +222,19 @@ canvas#cv{position:fixed;inset:0;display:block}
 </div>
 
 <!-- title -->
+<div id="tut"><div class="tt">🎮 조작 방법</div><div class="ring" id="tutR1"></div><div class="ring" id="tutR2"></div><div class="call" id="tutC1"><b>① 이동</b><br>이 조이스틱을<br>손가락으로 끌어요</div><div class="call" id="tutC2"><b>② 행동</b><br>노란 A 버튼을 누르면<br>줍기·대화·열기!</div><button class="big-btn go" id="tutGo">알겠어요! 시작 ▶</button></div>
 <div class="screen show" id="sTitle">
   <div class="box panel logo">
-    <span class="sub">국가기술자격 시험장 RPG</span>
-    <h1>시험날<br><em>D-DAY!</em></h1>
-    <p style="word-break:keep-all"><b style="color:#fff">오늘은 드디어 자격증 시험을 치는 날!</b><br>준비물을 챙기고 늦지 않게 시험장에 가서 CBT 시험까지 무사히 마칠 수 있을까?</p>
+    <span class="sub">산인공 경북지사 시험장 시뮬레이션 게임</span>
+    <h1>D-DAY<br><em>시험장 타이쿤</em></h1>
+    <p style="word-break:keep-all"><b style="color:#fff">오늘은 드디어 자격증 시험을 치는 날!</b><br>준비물을 챙기고 늦지 않게 시험장에 도착해서 시험까지 무사히 마칠 수 있을까?</p>
+    <div class="howto">
+      <div class="ht-t">🎮 조작 방법</div>
+      <div class="ht-row"><div class="ht-ic ht-joy"><i></i></div><div><b>이동</b><br>화면 <u>왼쪽 아래</u> 동그란 조이스틱을<br>손가락으로 끌어요</div></div>
+      <div class="ht-row"><div class="ht-ic ht-a">A</div><div><b>행동</b><br>화면 <u>오른쪽 아래</u> 노란 A 버튼을 눌러요<br><small>물건 줍기 · 대화 · 열기 · 앉기</small></div></div>
+      <div class="ht-pc">💻 PC: 방향키로 이동 · 스페이스바로 행동</div>
+    </div>
     <button class="big-btn" id="btnStart">▶ 게임 시작</button>
-    <div class="note">이동: 왼쪽 조이스틱 (PC는 방향키)<br>행동: 오른쪽 A 버튼 (PC는 스페이스)</div>
   </div>
 </div>
 <!-- setup -->
@@ -267,8 +294,8 @@ const ITEMS={
   clover:{icon:'🍀',name:'네잎클로버',desc:'행운의 네잎클로버!'},
 };
 const DEVICES=['phone','watch','glasses'];
-function makeNPCS(){return [{id:'friend',x:12.5,y:11.5,look:'friend',label:'민수'},{id:'guide',x:20.5,y:17.5,look:'guide',label:'안내요원'},{id:'supervisor',x:8.5,y:17.5,look:'supervisor',label:'시험위원'},{id:'cat',x:5.5,y:8.5,cat:true,label:'냥이'},{id:'dog',x:17.5,y:12.5,dog:true,label:'멍멍이'},{id:'granny',x:9.5,y:7.5,look:'granny',label:'옆집 할머니'},{id:'e1',x:13.5,y:20.5,look:'e1',sit:true,face:'down'},{id:'e2',x:16.5,y:20.5,look:'e2',sit:true,face:'down'}]}
-const PIGEONS=[{x:12.6,y:13.4},{x:13.3,y:13.0},{x:13.0,y:13.8},{x:4.2,y:16.5},{x:5.0,y:16.9}].map(p=>({...p,hx:p.x,hy:p.y,fly:0,t:Math.random()*6}));
+function makeNPCS(){return [{id:'friend',x:12.5,y:11.5,look:'friend',label:'민수'},{id:'guide',x:23.5,y:18.5,look:'guide',label:'안내요원'},{id:'supervisor',x:8.5,y:17.5,look:'supervisor',label:'시험위원'},{id:'cat',x:5.5,y:8.5,cat:true,label:'냥이'},{id:'dog',x:17.5,y:12.5,dog:true,label:'멍멍이'},{id:'granny',x:11.5,y:8.5,look:'granny',label:'옆집 할머니'},{id:'e1',x:15.5,y:22.5,look:'e1',sit:true,face:'down'},{id:'e2',x:18.5,y:22.5,look:'e2',sit:true,face:'down'}]}
+const PIGEONS=[{x:12.6,y:13.4},{x:13.3,y:13.0},{x:13.0,y:13.8},{x:3.2,y:15.4},{x:3.9,y:15.9}].map(p=>({...p,hx:p.x,hy:p.y,fly:0,t:Math.random()*6}));
 const CH={
   player:{name:'나'},supervisor:{name:'시험위원',look:'supervisor'},guide:{name:'시험장 안내요원',look:'guide'},
   friend:{name:'친구 민수',look:'friend'},cat:{name:'동네 고양이',cat:true},dog:{name:'동네 강아지',dog:true},granny:{name:'옆집 할머니',look:'granny'},
@@ -299,7 +326,7 @@ const ENDS={
 };
 
 /* ============ 맵 ============ */
-const W=24,H=24,TW=64,TH=32;
+const W=26,H=27,TW=64,TH=32;
 let G;
 const hash=(i,j)=>(((i*73856093)^(j*19349663))>>>0);
 function buildMap(){
@@ -307,19 +334,21 @@ function buildMap(){
   const set=(x,y,c)=>{G[y][x]=c};
   for(let i=0;i<W;i++){set(i,0,'T');set(i,H-1,'T')} for(let j=0;j<H;j++){set(0,j,'T');set(W-1,j,'T')}
   for(let j=1;j<H-1;j++)for(let i=1;i<W-1;i++) if(hash(i,j)%9===0) set(i,j,'p');
-  for(let x=1;x<=7;x++)for(let y=1;y<=6;y++){let c='o';if(y===1||x===1)c='H';else if(y===6||x===7)c='h';set(x,y,c)}
-  set(7,4,'o');set(4,2,'b');set(2,4,'k');
+  // 집 (넓힘: x1~9, y1~7)
+  for(let x=1;x<=9;x++)for(let y=1;y<=7;y++){let c='o';if(y===1||x===1)c='H';else if(y===7||x===9)c='h';set(x,y,c)}
+  set(9,4,'o');set(5,2,'b');set(2,4,'k');
   const line=(x1,y1,x2,y2)=>{let x=x1,y=y1;for(;;){set(x,y,'r');if(x===x2&&y===y2)break;x+=Math.sign(x2-x);y+=Math.sign(y2-y)}};
-  line(8,4,16,4);line(16,4,16,10);line(16,10,8,10);line(8,10,8,14);line(8,14,19,14);line(19,14,19,18);
-  for(let x=6;x<=18;x++)for(let y=16;y<=22;y++){let c='f';if(y===16||x===6)c='X';else if(y===22||x===18)c='x';set(x,y,c)}
-  set(18,18,'D');
-  for(let y=17;y<=21;y++)set(12,y,'w');set(12,18,'E');set(12,19,'E');
-  for(const x of [8,10])for(const y of [19,21])set(x,y,'c');
-  set(11,17,'L');set(13,17,'Q');
-  for(const x of [13,14,15,16])set(x,20,'B');
-  [[10,2],[13,1],[20,8],[22,12],[12,7],[3,9],[2,12],[4,14],[11,12],[15,8],[10,7],[21,16],[22,20],[3,18],[2,21],[4,21],[20,21],[14,11],[2,16]].forEach(([x,y])=>set(x,y,'T'));
+  line(10,4,16,4);line(16,4,16,10);line(16,10,8,10);line(8,10,8,14);line(8,14,22,14);line(22,14,22,19);
+  // 시험장 건물 (넓힘: x5~21, y16~25) — 왼쪽 시험실 / 오른쪽 대기실
+  for(let x=5;x<=21;x++)for(let y=16;y<=25;y++){let c='f';if(y===16||x===5)c='X';else if(y===25||x===21)c='x';set(x,y,c)}
+  set(21,19,'D');
+  for(let y=17;y<=24;y++)set(13,y,'w');set(13,19,'E');set(13,20,'E');
+  for(const x of [7,9,11])for(const y of [20,22])set(x,y,'c');
+  set(12,17,'L');set(14,17,'Q');
+  for(const x of [15,16,17,18])set(x,22,'B');
+  [[10,2],[13,1],[20,8],[22,12],[12,7],[3,10],[2,12],[4,14],[11,12],[15,8],[10,8],[3,18],[2,21],[3,23],[2,16],[24,21],[24,24],[23,25],[18,26-1-0]].forEach(([x,y])=>{if(G[y][x]==='.'||G[y][x]==='p')set(x,y,'T')});
   [[12,5],[17,8],[10,13],[15,15]].forEach(([x,y])=>set(x,y,'l'));
-  set(9,5,'S');
+  set(11,5,'S');
   // 실기시험장 (오픈 준비 중)
   for(let x=19;x<=22;x++)for(let y=1;y<=4;y++)set(x,y,'Y');
   set(20,4,'Z');line(16,5,20,5);set(21,5,'K');set(22,5,'K');set(18,6,'K');
@@ -340,11 +369,11 @@ const fmtS=t=>{const f=fmt(t);return f.ap+' '+f.hm};
 
 
 function newGame(){
-  P={x:4.5,y:3.6,face:'down',flip:false,moving:false};
+  P={x:5.5,y:3.6,face:'down',flip:false,moving:false};
   INV=[];
   const minor=LOOKS[LOOK].minor;
   ITEMS.phone.desc=minor?'침대 옆에서 충전 중이던 내 스마트폰. 혹시 몰라 학생증 사진도 찍어 뒀다.':'침대 옆에서 충전 중이던 내 스마트폰. 모바일 신분증 앱도 깔려 있고, 신분증 사진도 찍어 뒀다.';
-  WITEMS=[{id:'clover',x:14.5,y:7.6,hidden:1},{id:'phone',x:4.5,y:3.4},{id:'ticket',x:3.5,y:3.5},{id:'calc',x:5.5,y:5.4},{id:'pen',x:2.5,y:5.4},{id:'analog',x:5.5,y:3.5},{id:'watch',x:6.4,y:2.5},{id:'glasses',x:2.6,y:2.6},{id:minor?'oldcard':'student',x:3.6,y:5.4},{id:'choco',x:6.4,y:4.6}];
+  WITEMS=[{id:'clover',x:14.5,y:7.6,hidden:1},{id:'phone',x:6.6,y:2.6},{id:'ticket',x:3.6,y:2.6},{id:'glasses',x:8.3,y:2.6},{id:'watch',x:5.5,y:4.6},{id:'analog',x:7.6,y:4.4},{id:'calc',x:3.6,y:6.3},{id:'choco',x:5.5,y:6.4},{id:'pen',x:7.0,y:6.4},{id:minor?'oldcard':'student',x:8.4,y:5.6}];
   NPCS=makeNPCS();
   ENTRY=SESSION.t;DEADLINE=ENTRY+20;TIME_START=ENTRY-60;
   F={};CUT=null;PREP=0;MENT=60;TIME=TIME_START;RES=null;RETRIES=0;SNAPS=[];BADGES=[];FLOATS=[];PARTS=[];TARGET=null;LASTOBJ=0;
@@ -361,8 +390,18 @@ function newGame(){
     {text:'시험에 필요한 물건은 방 안을 둘러보며 직접 찾아보자.\n물건이나 가구에 다가가 오른쪽 A 버튼을 누르면 챙기거나 살펴볼 수 있어.'},
     {text:'가방은 6칸이야.\n아래 칸을 누르면 물건 설명을 보거나 내려놓을 수 있어.'},
     {who:'player',text:'좋아, 필요한 것만 쏙쏙 챙겨서 출발하자!'},
-  ]);
+  ],showTutorial);
 }
+function showTutorial(){
+  const j=$('#joy').getBoundingClientRect(),a=$('#abtn').getBoundingClientRect(),pad=10;
+  const ring=(el,r)=>{el.style.left=(r.left-pad)+'px';el.style.top=(r.top-pad)+'px';el.style.width=(r.width+pad*2)+'px';el.style.height=(r.height+pad*2)+'px'};
+  ring($('#tutR1'),j);ring($('#tutR2'),a);
+  const c1=$('#tutC1'),c2=$('#tutC2');
+  c1.style.left=Math.max(8,j.left-4)+'px';c1.style.bottom=(innerHeight-j.top+22)+'px';
+  c2.style.right=Math.max(8,innerWidth-a.right-4)+'px';c2.style.bottom=(innerHeight-a.top+22)+'px';
+  POP=true;$('#tut').classList.add('show');
+}
+$('#tutGo').onclick=()=>{$('#tut').classList.remove('show');POP=false;beep(660,.06)};
 
 /* ============ 유틸 ============ */
 const has=id=>INV.includes(id);
@@ -382,14 +421,14 @@ function F_CALL_SUB(){return '시험위원의 입실 안내가 나오면 시험�
 const hasValidId=()=>has('idcard')||has('schoolid')||(has('phone')&&!LOOKS[LOOK].minor);
 const OBJ=[
   {k:'home',t:'집에서 준비물 챙기기',s:'방을 둘러보고 필요한 물건을 챙긴 뒤 밖으로!',tg:null,done:()=>F.leftHome},
-  {k:'go',t:'시험장으로 이동하기',s:'',tg:[18.5,18.5],done:()=>F.arrived},
+  {k:'go',t:'시험장으로 이동하기',s:'',tg:[21.5,19.5],done:()=>F.arrived},
   {k:'guide',t:'안내요원에게 안내 듣기',s:'입구의 반짝이는 안내요원에게 말을 걸어 보세요',tg:()=>{const g=NPCS.find(n=>n.id==='guide');return [g.x,g.y]},done:()=>F.guide||F.seated},
-  {k:'seat',t:'대기실 의자에 앉기',s:'빈 의자에 앉아 안내를 기다리자',tg:[14.5,20.5],done:()=>F.seated},
+  {k:'seat',t:'대기실 의자에 앉기',s:'빈 의자에 앉아 안내를 기다리자',tg:[16.5,22.5],done:()=>F.seated},
   {k:'fetch',t:'집에서 신분증 챙겨 오기',s:'반짝이는 책상 서랍을 확인해 보세요',tg:[2.5,4.5],done:()=>!F.needId||hasValidId()},
-  {k:'enter',t:'안내를 듣고 시험실 입실',s:F_CALL_SUB(),tg:[12.5,18.5],done:()=>F.entered},
+  {k:'enter',t:'안내를 듣고 시험실 입실',s:F_CALL_SUB(),tg:[13.5,19.5],done:()=>F.entered},
   {k:'idc',t:'신분 확인 받기',s:'시험위원에게 신분증 확인',tg:[8.5,17.5],done:()=>F.idChecked},
-  {k:'dev',t:'전자기기 제출하기',s:'스마트폰·스마트워치·스마트안경은 전원을 끄고 앞쪽 제출대에',tg:[11.5,17.5],done:()=>F.deposited||!DEVICES.some(has)},
-  {k:'sit',t:'내 자리(12번 PC)에 앉기',s:'자리에 앉으면 CBT 시험 시작!',tg:[10.5,19.5],done:()=>false},
+  {k:'dev',t:'전자기기 제출하기',s:'스마트폰·스마트워치·스마트안경은 전원을 끄고 앞쪽 제출대에',tg:[12.5,17.5],done:()=>F.deposited||!DEVICES.some(has)},
+  {k:'sit',t:'내 자리(12번 PC)에 앉기',s:'자리에 앉으면 CBT 시험 시작!',tg:[9.5,22.5],done:()=>false},
 ];
 const objTg=o=>typeof o.tg==='function'?o.tg():o.tg;
 const curObj=()=>{for(let i=0;i<OBJ.length;i++)if(!OBJ[i].done())return i;return OBJ.length-1};
@@ -466,7 +505,7 @@ function getTarget(){
   const ti=Math.floor(P.x),tj=Math.floor(P.y);
   for(let dj=-1;dj<=1;dj++)for(let di=-1;di<=1;di++){
     const i=ti+di,j=tj+dj;if(i<0||j<0||i>=W||j>=H)continue;const c=G[j][i];
-    const lab={Z:'실기시험장',V:'자판기',k:'서랍 열기',b:'살펴보기',c:(i===10&&j===19)?'내 자리 앉기':'살펴보기',L:'전자기기 제출',S:'표지판 읽기',Q:'안내문 읽기',B:'의자에 앉기',E:F.callIn?null:'시험실 문'}[c];
+    const lab={Z:'실기시험장',V:'자판기',k:'서랍 열기',b:'살펴보기',c:(i===9&&j===22)?'내 자리 앉기':'살펴보기',L:'전자기기 제출',S:'표지판 읽기',Q:'안내문 읽기',B:'의자에 앉기',E:F.callIn?null:'시험실 문'}[c];
     if(c==='B'&&NPCS.some(n=>n.sit&&Math.floor(n.x)===i&&Math.floor(n.y)===j))continue;
     if(!lab)continue;const d=Math.hypot(i+.5-P.x,j+.5-P.y);
     if(d<1.3&&d<bd){bd=d;best={type:'tile',c,i,j,label:lab,btn:{L:'제출하기',c:'앉기',k:'열기',Z:'보기',V:'마시기',B:'앉기',Q:'읽기',S:'읽기',E:'보기',b:'보기'}[c],x:i+.5,y:j+.5}}
@@ -557,7 +596,7 @@ function tileAct(t){
     ]}]);return;
   }
   if(t.c==='c'){
-    if(!(t.i===10&&t.j===19)){say([{who:'player',text:'여긴 내 자리가 아니야. 12번 PC를 찾자!'}]);return}
+    if(!(t.i===9&&t.j===22)){say([{who:'player',text:'여긴 내 자리가 아니야. 12번 PC를 찾자!'}]);return}
     say([{who:'player',text:'내 자리(12번 PC)에 앉을까?\n앉으면 바로 시험이 시작돼!',choices:[{t:'💺 앉는다 (시험 시작)',fn:sitDown},{t:'아직 할 일이 있어',fn:()=>{}}]}]);
   }
 }
@@ -575,7 +614,7 @@ let CUT=null;
 function startGuideCut(){
   const g=NPCS.find(n=>n.id==='guide');
   const seatX=P.x;
-  CUT={npc:g,i:0,path:[[g.x,18.5],[19.5,18.5],[17.5,18.5],[seatX+.9,19.4]],onDone:guideTalkInside};
+  CUT={npc:g,i:0,path:[[g.x,19.5],[22.5,19.5],[20.5,19.5],[seatX+.9,21.4]],onDone:guideTalkInside};
 }
 function updateCut(dt){
   const n=CUT.npc,tg=CUT.path[CUT.i],dx=tg[0]-n.x,dy=tg[1]-n.y,d=Math.hypot(dx,dy);
@@ -586,7 +625,7 @@ function updateCut(dt){
 function guideTalkInside(){
   F.guideIn=1;F.guide=1;
   say([
-    {who:'guide',text:'여기 계셨군요! 이곳은 대기실이에요.'},
+    {who:'guide',text:'이곳은 대기실이에요.'},
     {who:'guide',text:'대기실에서 기다리시다가,\n시험위원이 시험실로 입실하라고 안내하면 시험실로 입실해 주세요.'},
     {who:'guide',text:'시험실에 들어가면 시험위원이 신분 확인을 해요.\n신분증은 꼭 필요하고, 모바일 신분증도 됩니다.'},
     {who:'guide',text:'학생은 학생증에 사진·성명·생년월일·학교장 직인이 있는지 꼭 확인하세요.'},
@@ -595,7 +634,7 @@ function guideTalkInside(){
   ],()=>say([
     {text:'…잠시 후, 시험실 쪽에서 안내가 들려온다.'},
     {who:'supervisor',text:'📢 수험자 여러분, 지금부터 시험실로 입실해 주세요!'},
-  ],()=>{F.callIn=1;sparkle(12.5,18.5,'#8fe3c0');jingle();toast('🚪 시험실 문이 열렸어요! 시험실로 입실하세요');updateHUD()}));
+  ],()=>{F.callIn=1;sparkle(13.5,19.5,'#8fe3c0');jingle();toast('🚪 시험실 문이 열렸어요! 시험실로 입실하세요');updateHUD()}));
 }
 function onEnter(){
   F.entered=1;updateHUD();
@@ -619,7 +658,7 @@ function noIdReturn(){
     {who:'supervisor',text:'신분증이 없으면 시험에 응시할 수 없어요.'},
     {who:'supervisor',text:minor?'아직 입실 마감 전이에요! 집에 가서 학생증(사진·성명·생년월일·학교장 직인)을 챙겨 오세요.':'아직 입실 마감 전이에요! 집에 가서 신분증을 챙겨 오세요.\n모바일 신분증도 됩니다.'},
     {who:'player',text:'네! 얼른 다녀오겠습니다!'},
-  ],()=>{F.entered=0;F.needId=1;F.hint='id';P.x=13.4;P.y=18.6;P.face='down';P.sit=false;cam.x=P.x;cam.y=P.y;updateHUD();toast('🏠 집으로 돌아가 신분증을 챙겨 오세요!')});
+  ],()=>{F.entered=0;F.needId=1;F.hint='id';P.x=14.4;P.y=19.6;P.face='down';P.sit=false;cam.x=P.x;cam.y=P.y;updateHUD();toast('🏠 집으로 돌아가 신분증을 챙겨 오세요!')});
 }
 function idPass(msg){
   F.idChecked=1;F.needId=0;if(F.hint==='id')F.hint=null;addPrep(15,'✅ 신분 확인 통과');jingle();
@@ -717,7 +756,7 @@ function retryFrom(k){
     if(cp)restoreSnap(cp);
     F.hint='go';msg=`⏪ ${fmtS(TIME)}로 시간을 되돌렸어!\n입실 마감은 ${fmtS(DEADLINE)}. 노란 화살표를 따라 서둘러 시험장으로 가자!`;
   }else if(['noid','student','oldcard','capture'].includes(k)){
-    F.entered=0;F.needId=1;F.hint='id';P.x=13.4;P.y=18.6;P.face='down';P.sit=false;cam.x=P.x;cam.y=P.y;
+    F.entered=0;F.needId=1;F.hint='id';P.x=14.4;P.y=19.6;P.face='down';P.sit=false;cam.x=P.x;cam.y=P.y;
     msg=hasValidId()?'⏪ 시험실에 들어가기 직전으로 돌아왔어.\n가방 속 인정 신분증을 보여 주자!':'⏪ 시험실에 들어가기 직전으로 돌아왔어.\n인정되는 신분증이 없어! 집 책상(✨반짝이는 곳)에 가서 챙겨 오자.\n노란 화살표를 따라가면 돼!';
   }else{
     const nm={phone:'스마트폰',watch:'스마트워치',glasses:'스마트안경'}[k];
@@ -804,9 +843,9 @@ function update(dt){
     P.face=sy<-.3?'up':(sy>.3?'down':P.face);P.sit=false;
   }
   for(const it of WITEMS)if(it.cool>0&&Math.hypot(it.x-P.x,it.y-P.y)>1.1)it.cool=0;
-  if(!F.leftHome&&P.x>=8){F.leftHome=1;updateHUD();toast('🚶 출발! 길을 따라 시험장으로')}
-  if(!F.arrived&&P.x<18&&P.x>=13&&P.y>=17&&P.y<22)onArrive();
-  if(!F.entered&&P.x<12&&P.x>=7&&P.y>=17&&P.y<22)onEnter();
+  if(!F.leftHome&&P.x>=10){F.leftHome=1;updateHUD();toast('🚶 출발! 길을 따라 시험장으로')}
+  if(!F.arrived&&P.x<21&&P.x>=14&&P.y>=17&&P.y<25)onArrive();
+  if(!F.entered&&P.x<13&&P.x>=6&&P.y>=17&&P.y<25)onEnter();
   for(const n of NPCS){if(n.sit)continue;const d=Math.hypot(n.x-P.x,n.y-P.y);if(d<3){const s=(P.x-n.x)-(P.y-n.y);n.flip=s<0;n.face=((P.x-n.x)+(P.y-n.y))<-.2?'up':'down'}}
   TARGET=getTarget();
   $('#aLbl').textContent=TARGET?(TARGET.btn||TARGET.label):'행동';$('#abtn').classList.toggle('dim',!TARGET);
@@ -838,15 +877,15 @@ function drawFloor(i,j,c){
   else if(c==='K'||c==='V'){diamond(i,j,alt?'#8fd16f':'#86c967')}
   else if(c==='r'){diamond(i,j,alt?'#e6d2a6':'#dec99a');diamond(i,j,null,.08,'rgba(150,120,70,.25)')}
   else if(c==='o'||c==='H'||c==='h'||c==='b'||c==='k'){diamond(i,j,alt?'#e7b47b':'#dea96e');const A=iso(i,j+.5),B=iso(i+1,j+.5);ctx.strokeStyle='rgba(120,70,30,.2)';ctx.beginPath();ctx.moveTo(A[0],A[1]);ctx.lineTo(B[0],B[1]);ctx.stroke()}
-  else if(c==='f'||c==='X'||c==='x'||c==='c'||c==='L'||c==='Q'||c==='w'||c==='B'){const wait=i>12;diamond(i,j,wait?(alt?'#cfe6d8':'#eef8f1'):(alt?'#f6c9d6':'#fff0f4'));diamond(i,j,null,0,wait?'rgba(90,150,110,.25)':'rgba(200,120,150,.25)')}
+  else if(c==='f'||c==='X'||c==='x'||c==='c'||c==='L'||c==='Q'||c==='w'||c==='B'){const wait=i>13;diamond(i,j,wait?(alt?'#cfe6d8':'#eef8f1'):(alt?'#f6c9d6':'#fff0f4'));diamond(i,j,null,0,wait?'rgba(90,150,110,.25)':'rgba(200,120,150,.25)')}
   else if(c==='E'){diamond(i,j,'#b98e67');if(F&&F.callIn)diamond(i,j,'#35c495',.2)}
   else if(c==='D'){diamond(i,j,'#b98e67');diamond(i,j,'#d14b5a',.18)}
 }
 const WC={w:{h:34,t:'#eef3fb',l:'#c5d3e8',r:'#a9bbd6'},H:{h:58,t:'#fff4e2',l:'#e8d3b3',r:'#d3b994'},h:{h:12,t:'#fff4e2',l:'#e8d3b3',r:'#d3b994'},X:{h:66,t:'#eef3fb',l:'#c5d3e8',r:'#a9bbd6'},x:{h:12,t:'#eef3fb',l:'#c5d3e8',r:'#a9bbd6'}};
 function drawTileObj(i,j,c,t){
   if(WC[c]){const w=WC[c];box(i,j,i+1,j+1,w.h,w.t,w.l,w.r);
-    if((c==='X'||c==='H')&&j===(c==='X'?16:1)&&i%2===1&&i>(c==='X'?6:1)&&i<(c==='X'?18:7)){const z0=18,z1=w.h-14,a=iso(i+.22,j+1),b=iso(i+.78,j+1);poly(ctx,[[a[0],a[1]-z0],[b[0],b[1]-z0],[b[0],b[1]-z1],[a[0],a[1]-z1]],'#8fd0f5','rgba(0,0,0,.25)');const m=iso(i+.5,j+1);ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(m[0],m[1]-z0);ctx.lineTo(m[0],m[1]-z1);ctx.stroke()}
-    if((c==='X'||c==='H')&&i===(c==='X'?6:1)&&j%2===0&&j>(c==='X'?16:1)&&j<(c==='X'?22:6)){const z0=18,z1=w.h-14,a=iso(i+1,j+.22),b=iso(i+1,j+.78);poly(ctx,[[a[0],a[1]-z0],[b[0],b[1]-z0],[b[0],b[1]-z1],[a[0],a[1]-z1]],'#8fd0f5','rgba(0,0,0,.25)')}
+    if((c==='X'||c==='H')&&j===(c==='X'?16:1)&&i%2===(c==='X'?0:1)&&i>(c==='X'?5:1)&&i<(c==='X'?21:9)&&i!==13){const z0=18,z1=w.h-14,a=iso(i+.22,j+1),b=iso(i+.78,j+1);poly(ctx,[[a[0],a[1]-z0],[b[0],b[1]-z0],[b[0],b[1]-z1],[a[0],a[1]-z1]],'#8fd0f5','rgba(0,0,0,.25)');const m=iso(i+.5,j+1);ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(m[0],m[1]-z0);ctx.lineTo(m[0],m[1]-z1);ctx.stroke()}
+    if((c==='X'||c==='H')&&i===(c==='X'?5:1)&&j%2===0&&j>(c==='X'?16:1)&&j<(c==='X'?25:7)){const z0=18,z1=w.h-14,a=iso(i+1,j+.22),b=iso(i+1,j+.78);poly(ctx,[[a[0],a[1]-z0],[b[0],b[1]-z0],[b[0],b[1]-z1],[a[0],a[1]-z1]],'#8fd0f5','rgba(0,0,0,.25)')}
     return}
   if(c==='B'){box(i+.2,j+.2,i+.8,j+.8,10,'#f2a93b','#d38c25','#bb7a1f');box(i+.2,j+.2,i+.32,j+.8,26,'#f2a93b','#d38c25','#bb7a1f',10);return}
   if(c==='E'){if(F&&F.callIn){const [x,y]=iso(i+.5,j+.5);ctx.fillStyle='#35c495';ctx.font='bold 17px Jua';ctx.textAlign='center';if(!F.entered)ctx.fillText('▼ 시험실 입실',x,y-58+Math.sin(T*4)*3);return}
@@ -859,25 +898,40 @@ function drawTileObj(i,j,c,t){
     return}
   if(c==='K'){const [x,y]=iso(i+.5,j+.5);ctx.fillStyle='rgba(0,0,0,.18)';ctx.beginPath();ctx.ellipse(x,y,10,4,0,0,6.3);ctx.fill();ctx.fillStyle='#ff7a1a';ctx.beginPath();ctx.moveTo(x-9,y-2);ctx.lineTo(x,y-30);ctx.lineTo(x+9,y-2);ctx.closePath();ctx.fill();ctx.fillStyle='#fff';ctx.fillRect(x-5,y-16,10,4);ctx.fillStyle='#e05a00';ctx.fillRect(x-11,y-3,22,4);return}
   if(c==='V'){box(i+.15,j+.2,i+.85,j+.8,50,'#e8513d','#c63f2d','#ad3626');const a=iso(i+.3,j+.8),b=iso(i+.7,j+.8);poly(ctx,[[a[0],a[1]-22],[b[0],b[1]-22],[b[0],b[1]-44],[a[0],a[1]-44]],'#dff3ff','rgba(0,0,0,.3)');
-    const [x,y]=iso(i+.5,j+.5);ctx.font='13px serif';ctx.textAlign='center';ctx.fillText('🥤',x-6,y-30);if(!F||!F.drink)sparkleIcon(i+.5,j+.5,58,t);return}
+    const [x,y]=iso(i+.5,j+.5);ctx.font='13px serif';ctx.textAlign='center';ctx.fillText('🥤',x-6,y-30);if(!F||!F.drink)exMark(x,y-74,t);return}
   if(c==='T'){const [x,y]=iso(i+.5,j+.5);const sw=Math.sin(t*1.5+i+j)*1.2;ctx.fillStyle='rgba(0,0,0,.2)';ctx.beginPath();ctx.ellipse(x,y,18,8,0,0,6.3);ctx.fill();ctx.fillStyle='#8a5a33';rr(ctx,x-4,y-26,8,26,3);
     const g=[['#3f9d4a',x+sw,y-38,21],['#4db058',x-8+sw,y-46,15],['#57bd62',x+7+sw,y-50,14],['#6fcf6f',x+sw,y-60,12]];g.forEach(([cc,a,b,r])=>{ctx.fillStyle=cc;ctx.beginPath();ctx.arc(a,b,r,0,6.3);ctx.fill()});ctx.fillStyle='rgba(255,255,255,.25)';ctx.beginPath();ctx.arc(x-4+sw,y-62,4,0,6.3);ctx.fill();return}
   if(c==='l'){const [x,y]=iso(i+.5,j+.5);ctx.fillStyle='rgba(0,0,0,.18)';ctx.beginPath();ctx.ellipse(x,y,7,3,0,0,6.3);ctx.fill();ctx.fillStyle='#3b4660';ctx.fillRect(x-2,y-56,4,56);ctx.fillStyle='#ffe48a';ctx.beginPath();ctx.arc(x,y-60,7,0,6.3);ctx.fill();ctx.fillStyle='rgba(255,228,138,.25)';ctx.beginPath();ctx.arc(x,y-60,14+Math.sin(t*3)*2,0,6.3);ctx.fill();return}
   if(c==='b'){box(i+.08,j+.12,i+.92,j+.88,14,'#ffffff','#d9dfe8','#c4ccd8');box(i+.3,j+.12,i+.92,j+.88,4,'#5b8de6','#4a76c4','#3e66ab',14);box(i+.1,j+.2,i+.3,j+.8,5,'#fff','#e5e5e5','#d5d5d5',14);return}
   if(c==='k'){box(i+.12,j+.1,i+.88,j+.9,26,'#b9854f','#9a6b3d','#875c33');const a=iso(i+.3,j+.9),b=iso(i+.7,j+.9);ctx.strokeStyle='#5c3b1f';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(a[0],a[1]-14);ctx.lineTo(b[0],b[1]-14);ctx.stroke();
     if(!F||!F.drawer){bigSparkle(i+.5,j+.5,44,t);if(F&&F.needId&&!hasValidId()){const a=(Math.sin(t*5)+1)/2;diamond(i,j,`rgba(255,220,60,${.3+a*.4})`,-.2);const [x,y]=iso(i+.5,j+.5);ctx.fillStyle='#e8513d';ctx.font='bold 17px Jua';ctx.textAlign='center';ctx.fillText('▼ 신분증 여기!',x,y-66+Math.sin(t*4)*3)}}return}
-  if(c==='c'){const mine=i===10&&j===19;box(i+.1,j+.1,i+.9,j+.9,22,'#f2f5fa','#c9d2df','#b3bfd0');box(i+.35,j+.15,i+.75,j+.3,22,'#2b3348','#1e2536','#161c2a',22);
+  if(c==='c'){const mine=i===9&&j===22;box(i+.1,j+.1,i+.9,j+.9,22,'#f2f5fa','#c9d2df','#b3bfd0');box(i+.35,j+.15,i+.75,j+.3,22,'#2b3348','#1e2536','#161c2a',22);
     const a=iso(i+.4,j+.3),b=iso(i+.72,j+.3);poly(ctx,[[a[0],a[1]-25],[b[0],b[1]-25],[b[0],b[1]-41],[a[0],a[1]-41]],mine?'#ffe48a':'#6fd3ff');
     if(mine&&F&&F.idChecked){const [x,y]=iso(i+.5,j+.5);const bo=Math.sin(t*4)*4;ctx.fillStyle='#e8513d';ctx.font='bold 18px Jua';ctx.textAlign='center';ctx.fillText('▼ 내 자리',x,y-60+bo)}return}
   if(c==='L'){if(F&&F.hint==='submit'&&DEVICES.some(has)){const a=(Math.sin(t*5)+1)/2;diamond(i,j,`rgba(255,220,60,${.35+a*.4})`,-.15);sparkleIcon(i+.5,j+.5,86,t)}
     box(i+.08,j+.15,i+.92,j+.85,24,'#c8a27a','#a9845d','#93714e');box(i+.22,j+.28,i+.78,j+.72,10,'#5a7bb5','#47659a','#3c5685',24);
-    const [x,y]=iso(i+.5,j+.5);ctx.font='16px serif';ctx.textAlign='center';ctx.fillText('📴',x,y-44+Math.sin(t*3)*2);
-    if(F&&F.idChecked&&!F.deposited){ctx.fillStyle='#e8513d';ctx.font='bold 17px Jua';ctx.fillText('▼ 전자기기 제출',x,y-64+Math.sin(t*4)*3)}return}
+    return}
   if(c==='Q'){const [x,y]=iso(i+.5,j+.5);ctx.fillStyle='rgba(0,0,0,.18)';ctx.beginPath();ctx.ellipse(x,y,14,5,0,0,6.3);ctx.fill();ctx.fillStyle='#5c4630';ctx.fillRect(x-12,y-30,3,30);ctx.fillRect(x+9,y-30,3,30);
     ctx.fillStyle='#fff';ctx.strokeStyle='#e8513d';ctx.lineWidth=3;ctx.beginPath();ctx.roundRect?ctx.roundRect(x-26,y-74,52,46,5):ctx.rect(x-26,y-74,52,46);ctx.fill();ctx.stroke();
     ctx.fillStyle='#e8513d';ctx.font='15px serif';ctx.textAlign='center';ctx.fillText('⚠️',x,y-55);ctx.font='bold 11px Jua';ctx.fillText('부정행위',x,y-42);ctx.fillText('단속!',x,y-31);return}
   if(c==='S'){const [x,y]=iso(i+.5,j+.5);ctx.fillStyle='#7a5230';ctx.fillRect(x-2,y-34,4,34);ctx.fillStyle='#fff4e2';ctx.strokeStyle='#7a5230';ctx.lineWidth=2;ctx.beginPath();ctx.roundRect?ctx.roundRect(x-34,y-54,68,22,5):ctx.rect(x-34,y-54,68,22);ctx.fill();ctx.stroke();ctx.fillStyle='#1b2a4a';ctx.font='13px Jua';ctx.textAlign='center';ctx.fillText('시험장 →',x,y-38);return}
 }
+function submitSign(x,y,t){
+  const done=F&&F.deposited,a=(Math.sin(t*4)+1)/2,bo=Math.sin(t*3)*4,cy=y-82+bo;
+  ctx.save();ctx.translate(x,cy);
+  if(done){ctx.fillStyle='#35c495';ctx.strokeStyle='#fff';ctx.lineWidth=3;ctx.beginPath();ctx.roundRect?ctx.roundRect(-46,-15,92,30,15):ctx.rect(-46,-15,92,30);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font='bold 15px Jua';ctx.textAlign='center';ctx.fillText('✅ 제출 완료',0,5);ctx.restore();return}
+  const sc=1+a*.07;ctx.scale(sc,sc);
+  ctx.fillStyle=`rgba(255,90,70,${.18+a*.22})`;ctx.beginPath();ctx.ellipse(0,0,66,46,0,0,6.3);ctx.fill();
+  ctx.fillStyle='#e8513d';ctx.strokeStyle='#fff';ctx.lineWidth=4;
+  ctx.beginPath();ctx.roundRect?ctx.roundRect(-56,-34,112,62,14):ctx.rect(-56,-34,112,62);ctx.fill();ctx.stroke();
+  ctx.beginPath();ctx.moveTo(-10,27);ctx.lineTo(0,42);ctx.lineTo(10,27);ctx.closePath();ctx.fill();ctx.stroke();
+  ctx.fillStyle='#e8513d';ctx.fillRect(-12,24,24,5);
+  ctx.font='24px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('📱⌚👓',0,-12);ctx.textBaseline='alphabetic';
+  ctx.fillStyle='#fff';ctx.font='bold 16px Jua';ctx.fillText('전자기기 제출',0,19);
+  ctx.restore();
+}
+function exMark(x,y,t){const bo=Math.sin(t*5)*3;ctx.fillStyle='#ffd23d';ctx.beginPath();ctx.arc(x,y+bo,9,0,6.3);ctx.fill();ctx.fillStyle='#1b2a4a';ctx.font='bold 14px Jua';ctx.textAlign='center';ctx.fillText('!',x,y+5+bo)}
 function bigSparkle(x,y,h,t){const [sx,sy]=iso(x,y);const a=(Math.sin(t*4)+1)/2,bo=Math.sin(t*3)*4,cy=sy-h-14+bo;
   const g=ctx.createRadialGradient(sx,cy,2,sx,cy,34+a*8);g.addColorStop(0,'rgba(255,245,170,.95)');g.addColorStop(.45,'rgba(255,215,80,.55)');g.addColorStop(1,'rgba(255,215,80,0)');
   ctx.fillStyle=g;ctx.beginPath();ctx.arc(sx,cy,34+a*8,0,6.3);ctx.fill();
@@ -977,9 +1031,11 @@ function draw(){
   const hw=VW/2/ZOOM+80,hh=VH/2/ZOOM+120;
   const vis=(i,j)=>{const [x,y]=iso(i+.5,j+.5);return Math.abs(x-cx)<hw&&Math.abs(y-cy)<hh};
   for(let j=0;j<H;j++)for(let i=0;i<W;i++)if(vis(i,j))drawFloor(i,j,G[j][i]);
+  // 바닥 글씨 (시험실·대기실)
+  floorText(6.2,24.5,'시 험 실','rgba(192,71,106,.55)');floorText(14.4,24.5,'대 기 실','rgba(47,143,91,.55)');
   // target highlight
   const oi=MODE==='play'?curObj():-1;
-  if(oi>=0&&OBJ[oi].k==='sit'&&F.idChecked){const a=(Math.sin(T*4)+1)/2;diamond(10,20,`rgba(255,220,80,${.25+a*.35})`,.06)}
+  if(oi>=0&&OBJ[oi].k==='sit'&&F.idChecked){const a=(Math.sin(T*4)+1)/2;diamond(9,23,`rgba(255,220,80,${.25+a*.35})`,.06)}
   if(TARGET&&MODE==='play'&&TARGET.type!=='npc'){diamond(Math.floor(TARGET.x),Math.floor(TARGET.y),null,.04,'rgba(255,200,40,.9)')}
   const objs=[];
   for(let j=0;j<H;j++)for(let i=0;i<W;i++){const c=G[j][i];if((BLOCK.has(c)||DECO.has(c))&&vis(i,j))objs.push({d:i+j+(c==='B'?.9:1),f:()=>drawTileObj(i,j,c,T)})}
@@ -987,17 +1043,16 @@ function draw(){
     const a=(Math.sin(T*4+it.y)+1)/2;ctx.fillStyle=`rgba(255,240,150,${.25+a*.3})`;ctx.beginPath();ctx.arc(x,y-20+b,15,0,6.3);ctx.fill();ctx.font='22px serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(ITEMS[it.id].icon,x,y-20+b);ctx.textBaseline='alphabetic'}});
   if(NPCS)for(const n of NPCS)objs.push({d:n.x+n.y,f:()=>{const [x,y]=iso(n.x,n.y);if(n.id==='guide'&&F.arrived&&!F.guide&&MODE==='play'){const a=(Math.sin(T*5)+1)/2;ctx.fillStyle=`rgba(255,230,90,${.25+a*.35})`;ctx.beginPath();ctx.ellipse(x,y,26+a*6,12+a*3,0,0,6.3);ctx.fill();sparkleIcon(n.x,n.y,96,T)}
     if(n.cat)drawCat(ctx,x,y,T);else if(n.dog)drawDog(ctx,x,y,T);else drawChar(ctx,x,y,LOOKS[n.look],n,T);
-    if(n.label)label(x,y-((n.cat||n.dog)?36:70),n.label,'#fff','#1b2a4a');
+    if(n.label&&(MODE!=='play'||!P||Math.hypot(n.x-P.x,n.y-P.y)<3.5))label(x,y-((n.cat||n.dog)?36:70),n.label,'#fff','#1b2a4a');
     const q=(n.id==='friend'&&!F.friend)||(n.id==='guide'&&!F.guide)||(n.id==='cat'&&!F.cat)||(n.id==='dog'&&!F.dog)||(n.id==='granny'&&!F.granny);
     if(q){const bo=Math.sin(T*5)*3;ctx.fillStyle='#ffd23d';ctx.beginPath();ctx.arc(x,y-((n.cat||n.dog)?56:92)+bo,9,0,6.3);ctx.fill();ctx.fillStyle='#1b2a4a';ctx.font='bold 14px Jua';ctx.textAlign='center';ctx.fillText('!',x,y-((n.cat||n.dog)?51:87)+bo)}}});
   if(P)objs.push({d:P.x+P.y,f:()=>{const [x,y]=iso(P.x,P.y);drawChar(ctx,x,y,LOOKS[LOOK],P,T)}});
   objs.sort((a,b)=>a.d-b.d);objs.forEach(o=>o.f());
   drawPigeons();
   // banners
-  let [bx,by]=iso(12.5,17);banner(bx,by-104,'국가기술자격 시험장','#1b2a4a','#ffe48a');
-  [bx,by]=iso(9.5,17);banner(bx,by-62,'시험실','#fff','#c0476a');
-  [bx,by]=iso(15.5,17);banner(bx,by-62,'대기실','#fff','#2f8f5b');
-  [bx,by]=iso(4.5,2);banner(bx,by-84,'🏠 우리 집','#7a4a22','#fff4e2');
+  let [bx,by]=iso(21,18);banner(bx,by-112,'국가기술자격 시험장','#1b2a4a','#ffe48a');
+  [bx,by]=iso(5.5,2);banner(bx,by-84,'🏠 우리 집','#7a4a22','#fff4e2');
+  {const [sx,sy]=iso(12.5,17.5);submitSign(sx,sy,T)}
   [bx,by]=iso(21,3);banner(bx,by-112,'🚧 실기시험장 · 오픈 준비 중','#7a3b00','#ffd9a8');
   // prompt
   if(TARGET&&MODE==='play'&&!DLG){const [x,y]=iso(TARGET.x,TARGET.y);const h=TARGET.type==='npc'?((TARGET.n.cat||TARGET.n.dog)?66:108):TARGET.type==='item'?52:(TARGET.c==='L'?88:70);
@@ -1015,10 +1070,11 @@ function draw(){
       ctx.save();ctx.translate(sx,sy);ctx.rotate(a);ctx.fillStyle='#ffd23d';ctx.strokeStyle='#1b2a4a';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(16,0);ctx.lineTo(-8,-11);ctx.lineTo(-3,0);ctx.lineTo(-8,11);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();
       ctx.font='bold 15px Jua';ctx.textAlign='center';ctx.lineWidth=3;ctx.strokeStyle='#1b2a4a';ctx.strokeText(Math.round(dist*3)+'m',sx,sy+24);ctx.fillStyle='#fff';ctx.fillText(Math.round(dist*3)+'m',sx,sy+24)}}}
 }
+function floorText(wx,wy,text,col){const [x,y]=iso(wx,wy);ctx.save();ctx.translate(x,y);ctx.transform(1,.5,-1,.5,0,0);ctx.font='24px "Black Han Sans"';ctx.textAlign='left';ctx.fillStyle=col;ctx.fillText(text,0,0);ctx.restore()}
 function banner(x,y,text,fg,bg){ctx.font='20px "Black Han Sans"';const w=ctx.measureText(text).width+26;ctx.fillStyle='rgba(0,0,0,.25)';ctx.fillRect(x-w/2+3,y-13+4,w,28);ctx.fillStyle=bg;ctx.strokeStyle=fg;ctx.lineWidth=3;ctx.beginPath();ctx.roundRect?ctx.roundRect(x-w/2,y-13,w,28,6):ctx.rect(x-w/2,y-13,w,28);ctx.fill();ctx.stroke();ctx.fillStyle=fg;ctx.textAlign='center';ctx.fillText(text,x,y+6.5);
   ctx.fillStyle=fg;ctx.fillRect(x-w/2+10,y+15,3,14);ctx.fillRect(x+w/2-13,y+15,3,14)}
 
-const TOUR=[[4,4],[12,4],[18,5],[16,8],[10,10],[8,14],[16,14],[19,18],[15,19],[9,19],[6,10]];let tourI=0;
+const TOUR=[[5,4],[13,4],[18,5],[16,8],[10,10],[8,14],[17,14],[22,19],[17,21],[9,21],[6,11]];let tourI=0;
 function frame(ts){
   const dt=Math.min(.05,(ts-last)/1000);last=ts;T+=dt;
   if(MODE==='play'&&!DLG&&!POP){if(CUT)updateCut(dt);else update(dt)}
@@ -1035,7 +1091,7 @@ function frame(ts){
 /* ============ 타이틀/설정 ============ */
 buildMap();F={};FLOATS=[];PARTS=[];INV=[];
 NPCS=makeNPCS();
-WITEMS=[];P={x:4.5,y:3.6,face:'down'};
+WITEMS=[];P={x:5.5,y:3.6,face:'down'};
 function setupScreen(){
   const lc=$('#lookCh');lc.innerHTML='';
   ['p1','p2','p3','p4'].map(k=>[k,LOOKS[k].label]).forEach(([k,n])=>{const d=document.createElement('div');d.className='ch'+(LOOK===k?' on':'');const c=document.createElement('canvas');c.width=128;c.height=128;d.appendChild(c);d.appendChild(document.createTextNode(n));
