@@ -374,8 +374,9 @@ function TR_(str){
 function trNode(n){
   if(n.nodeType!==3)return;const v=n.nodeValue;
   if(LANG==='ko'){if(n.__o!==undefined&&v===n.__t){n.nodeValue=n.__o}n.__o=undefined;n.__t=undefined;return}
-  if(v===n.__t)return;if(!/[가-힣]/.test(v))return;
-  n.__o=v;const t=TR(v);n.__t=t;if(t!==v)n.nodeValue=t;
+  let src=v;if(n.__o!==undefined&&v===n.__t){if(n.__l===LANG)return;src=n.__o}
+  if(!/[가-힣]/.test(src))return;
+  n.__o=src;const t=TR(src);n.__t=t;n.__l=LANG;if(t!==v)n.nodeValue=t;
 }
 function translateDOM(root){
   if(!root)return;if(root.nodeType===3){trNode(root);return}
