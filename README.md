@@ -1,4 +1,5 @@
 https://myjeong14-cmyk.github.io/hrdk-Dday-game
+<img width="820" height="820" alt="game_qr_personal" src="https://github.com/user-attachments/assets/7974cb5a-bfa3-47c8-9950-e55fbe69b760" />
 
 
 
